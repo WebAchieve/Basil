@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basil</title>
+	<link href="https://fonts.googleapis.com/css?family=Marck+Script&display=swap&subset=cyrillic" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<header class="header">
+		<div class="container">
+			<div class="header-top">
+				<div class="header-logo">
+					<img src="img/Union.png" alt="">
+				</div>
+				<div class="header-contacts">
+					<span>+38066-778-45-34</span>
+				</div>
+				<div class="header-bag">
+					<img src="img/bag.svg" alt="bag">
+					<span class="badge">0</span>
+				</div>
+			</div>
+			<div class="header-menu">
+				<nav class="navbar">
+					<div class="navbar-item" data-field="Бургеры">
+						<img src="img/burgery.svg" alt="">
+						<span>Бургеры</span>
+					</div>
+					<div class="navbar-item" data-field="Пицца">
+						<img src="img/picca.svg" alt="">
+						<span>Пицца</span>
+					</div>
+					<div class="navbar-item" data-field="Салаты">
+						<img src="img/salaty.svg" alt="">
+						<span>Салаты</span>
+					</div>
+					<div class="navbar-item" data-field="Паста">
+						<img src="img/pasta.svg" alt="">
+						<span>Паста</span>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+	</header>
+	<main>
+		<section class="products">
+			<div class="container">
+				<div class="row product-layout">
+
+
+				</div>
+			</div>
+		</section>
+	</main>
+	
+	<div class="basket">
+		<div class="close">
+		</div>
+		<div class="basket-content">
+
+		</div>
+		<div class="create-order">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<span class="total-text">Товаров на суму:</span>
+						<span class="total-price">36.00 грн.</span>
+					</div>
+					<div class="col-12 d-flex justify-content-center p-3">
+						<button class="main-button btn-order">
+							<img src="img/btn_border_white.png" alt="order">
+							<span>Оформить заказ</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="modal">
+		<div class="modal-container">
+			<div class="modal-content">
+				<div class="close-modal"></div>
+				<div class="modal-body">
+					<h2 class="modal-body_title">Оформление заказа</h2>
+				<div class="row">
+						<div class="col-4">
+							<div class="modal-goods">
+								<div class="modal-goods__item">
+										<div class="modal-goods_img">
+											<img src="img/pasta/balonyes.png" alt="">
+										</div>
+										<div class="modal-goods_info">
+											<div class="modal-goods_info--title">
+												<h3>Пицца Болгарская</h3>
+												<span>233гр</span>
+											</div>
+											<div class="modal-goods_info--weight">
+												<small>500гр</small>
+												<span>Количество: 21</span>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-8">
+							<form>
+								<div class="d-flex">
+									<input  class="modal-input" type="text"  name="phone" autocomplete="off" value="" placeholder="Телефон" >
+									<input  class="modal-input" type="text"  name="name" autocomplete="off" value="" placeholder="Имя">
+								</div>
+								<div class="d-flex">
+									<input  class="modal-input" type="text"  name="shipping_street" autocomplete="off"  placeholder="Улица" >
+									<div class="d-flex">
+										<input  class="modal-input" type="text"  name="shipping_house" autocomplete="off"  placeholder="Дом" >
+									<input  class="modal-input" type="text"  name="shipping_entrance" autocomplete="off" value="" placeholder="Подъезд">
+									<input  class="modal-input" type="text"  name="shipping_apartment" autocomplete="off" value="" placeholder="Квартира" >
+									</div>
+									
+									
+								</div>
+								<ul>
+									<li><input type="radio">Оплата курьеру</li>
+									<li><input type="radio">Перевод на карту</li>
+								</ul>
+
+							</form>
+						</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/main.js"></script>
+
+</html>
