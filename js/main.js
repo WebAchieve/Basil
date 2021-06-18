@@ -8,12 +8,15 @@ const productLayout = document.querySelector('.product-layout'),
     badge = document.querySelectorAll('.badge'),
     modal = document.querySelector('.modal'),
     modalBody = document.querySelector('.modal-body'),
-    btnOrder = document.querySelector('.btn-order')
+    btnOrder = document.querySelector('.btn-order'),
+    totalPrice = document.querySelector('.total-price')
+   
 
 
 
-let cartContainer = []
-let cart = []
+let cartContainer = [];
+let cart = [];
+let modalTotal = '';
 /// Dispatch Products
 class Products {
     async getProducts() {
@@ -36,7 +39,7 @@ class Render {
         let productCart = '';
         products.forEach(_product => {
             productCart += `
-            <div class="col-lg-3 pb-3">
+            <div class="col-lg-3 col-6 pb-3">
             <div class="goods-card" data-id = "${_product.id}">
                 <div class="goods-card_title">
                     <h2>${_product.name}</h2>
@@ -130,7 +133,8 @@ class Render {
                 cartItem.map(item => {
                     total += item.price * item.count;
                 })
-
+                modalTotal = total
+                totalPrice.innerHTML = total;
             });
             badge.forEach(el => {
                 el.innerHTML = cartItem.length
@@ -175,6 +179,7 @@ class Render {
 
         if (!cartItem) {
             cartContainer = [...cartContainer, productItem]
+            this.Chips(productItem.name)
         } else {
             const newCartContainer = cartContainer.map(el => {
                 if (el.id === id) {
@@ -265,7 +270,7 @@ class Render {
             let modalCartItem = cart.find(item => item.id === id)
             let modalCart = `
             <div class="row px-2">
-            <div class="col-10 col-md-6 d-flex flex-column ">
+            <div class="col-8 col-md-6 d-flex flex-column ">
                 <h2 class="modal-body__title">${modalCartItem.name}</h2>
                 <div class="modal-body_wheight">
                     <p>Вес:</p>
@@ -280,7 +285,7 @@ class Render {
                 </button>
                 </div>
             </div>
-            <div class="col-2 col-md-6">
+            <div class="col-4 col-md-6">
                 <div class="thumbnail">
                     <img src=".${modalCartItem.img}" alt="${modalCartItem.name}">
                 </div>
@@ -297,10 +302,117 @@ class Render {
             modalButton.addEventListener('click', () => {
                 this.addCart(idx)
             })
-        } 
+        } else {
+
+            const order = `
+            <div class="modal-order">
+            <h2 class="modal-body_title">Оформление заказа</h2>
+            <div class="row">
+            <div class="col-lg-5 col-12">
+                <div class="modal-goods">
+                    
+                </div>
+            </div>
+            <div class="col-lg-7 col-12">
+                <form class="modal-form">
+                    <div class="total-information">
+                        <input class="modal-input" type="text" name="phone" autocomplete="off" value=""
+                            placeholder="Телефон" required>
+                        <input class="modal-input" type="text" name="name" autocomplete="off" value=""
+                            placeholder="Имя" required>
+                    </div>
+                    <div class="total-information">
+                        <input class="modal-input" type="text" name="shipping_street" autocomplete="off"
+                            placeholder="Улица" required>
+                        <div class="d-flex">
+                            <input class="modal-input" type="text" name="shipping_house" autocomplete="off"
+                                placeholder="Дом">
+                            <input class="modal-input" type="text" name="shipping_entrance"
+                                autocomplete="off" value="" placeholder="Подъезд">
+                            <input class="modal-input" type="text" name="shipping_apartment"
+                                autocomplete="off" value="" placeholder="Квартира">
+                        </div>
+
+
+                    </div>
+                    <ul class="modal-list">
+                        <li><input type="radio">Оплата курьеру</li>
+                        <li><input type="radio">Оплата на карту</li>
+                    </ul>
+                    <textarea class="modal-textarea" name="comment" autocomplete="off"
+                        placeholder="Комментарий" rows="1"></textarea>
+                    <div class="total-order">
+                        <div class="total-list">
+                            <div class="total-list_item">
+                                <p>Заказ:</p>
+                                <span>${modalTotal} грн</span>
+                            </div>
+                            <div class="total-list_item">
+                                <p>Скидка:</p>
+                                <span>0 грн</span>
+                            </div>
+                            <div class="total-list_item">
+                                <p>К оплате:</p>
+                                <span>${modalTotal} грн</span>
+                            </div>
+                        </div>
+                        <button class="main-button confirm" type="submit">
+                            <img src="img/btn_border_white.png" alt="order">
+                            <span>Оформить заказ</span>
+                        </button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+        </div>
+            `;
+
+            modalBody.innerHTML = order;
+            const orderContainer = document.querySelector('.modal-goods')
+            const orderCart = Storage.getCart()
+            orderCart.forEach(el => {
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('modal-goods__item')
+                orderItem.innerHTML = `
+                <div class="modal-goods_img">
+                    <img src=".${el.img}" alt="${el.name}">
+                </div>
+                <div class="modal-goods_info">
+                    <div class="modal-goods_info--title">
+                        <h3>${el.name}</h3>
+                        <span>${el.price * el.count}гр</span>
+                    </div>
+                    <div class="modal-goods_info--weight">
+                        <small>${el.weight}гр</small>
+                        <span>Количество: ${el.count}</span>
+                    </div>
+                </div>
+            `;
+                orderContainer.append(orderItem)
+            })
+            const confirmButton =  document.querySelector('.confirm')
+           confirmButton.addEventListener('click',()=>{
+                const confirm = `
+                <div class="confirm-box">
+                <div class="confirm-box_item">
+                <img src="img/check.svg" alt="check">
+                </div>
+                <div class="confirm-box_item">
+                <h4>Ваш заказ передан в доставку</h4>
+                <p>Приятного аппетита!</p>
+                </div>
+                </div>
+                `
+                modalBody.innerHTML = confirm
+            })
+
+        }
 
 
     }
+    //Добаление листьев
     Animation(){
         let main = document.querySelector('main')
        
@@ -310,7 +422,7 @@ class Render {
        let random = Math.floor(Math.random() * (360 - 1 + 1)) + 1;
         let leaves = document.createElement('div');
        leaves.classList.add('leaves')
-       leaves.innerHTML = `<img src="img/Subtract.png" alt="leaves" data="${i}">`
+       leaves.innerHTML = `<img src="img/Subtract.png" alt="leaves">`
         /* leaves.style.transform = 'rotate(' + random + 'deg)'; */
         main.append(leaves)
        
@@ -319,10 +431,40 @@ class Render {
         document.querySelectorAll('.leaves').forEach(element => {
             element.style.transform = 'rotate(' + Math.round(window.pageYOffset)/10+ 'deg)';
         });
-        
-        
+        let navbar = document.querySelector('.navbar');
+        let header = document.querySelector('.header-menu')
+        let stickyFix = document.querySelectorAll('.sticky-fix')
+       let sticky = header.offsetTop;
+       console.log(sticky)
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+            stickyFix.forEach(element => {
+               element.classList.add("sticky")
+            }); 
+        } else {
+            navbar.classList.remove("sticky");
+            stickyFix.forEach(element => {
+                element.classList.remove("sticky")
+             }); 
+        }
         
        })
+    }
+    //Всплывающие сообщения
+    Chips(name){
+        const chipsBox = document.querySelector('.chips')
+        const chips = document.createElement('div');
+        chips.classList.add('chips-item')
+        chips.innerHTML = `<p>${name} добавлен в корзину</p> <img src="img/check.svg" alt="chips">`
+        chipsBox.appendChild(chips)
+        setTimeout(
+            ()=>{
+                chips.remove()
+            },
+            3000
+        )
+        
+
     }
 }
 //Storage
@@ -348,9 +490,10 @@ document.addEventListener('DOMContentLoaded', () => {
     close.addEventListener('click', () => {
         basket.classList.remove('active')
     })
-    basketIcon.forEach(el => {
-        el.addEventListener('click', () => {
-            basket.classList.add('active')
-        })
-    })
+    basketIcon.forEach(element => {
+            element.addEventListener('click', () => {
+                basket.classList.add('active')
+            })
+    }); 
+   
 })
