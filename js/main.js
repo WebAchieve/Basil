@@ -44,7 +44,7 @@ class Render {
                 <div class="goods-card_title">
                     <h2>${_product.name}</h2>
                     <div class="goods-card__img">
-                        <img src="${_product.img}" alt="${_product.name}">
+                        <img src=".${_product.img}" alt="${_product.name}">
                     </div>
                     <div class="goods-card_price">
                         <span>${_product.weight}гр</span>
