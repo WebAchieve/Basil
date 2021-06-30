@@ -765,6 +765,9 @@ img {
     transform: translateX(0);
   }
 }
+.mobile-bag{
+  display: none;
+}
 /*MEDIA*/
 @media (max-width: 768px) {
   .thumbnail {
@@ -802,6 +805,7 @@ img {
     justify-content: center;
     z-index: 4;
     bottom: -3%;
+    display: block;
   }
   .mobile-bag_button {
     border: 2px solid var(--text);
