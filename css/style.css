@@ -879,7 +879,7 @@ img {
   .modal-order{
     overflow-y: auto;
     overflow-x: hidden;
-    height: 95vh;
+    height: 92vh;
   }
   .total-order{
     flex-direction: column;
