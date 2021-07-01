@@ -630,6 +630,8 @@ img {
   text-transform: uppercase;
   display: flex;
   align-items: flex-start;
+  width: 100%;
+   padding: 0 20px;
 }
 .confirm-box img {
   width: 30px;
