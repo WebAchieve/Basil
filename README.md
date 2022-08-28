@@ -1,1 +1,1 @@
-# Basil wrbsite template on JS
+# Basil website template on JS
